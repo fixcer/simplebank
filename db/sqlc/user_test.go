@@ -27,9 +27,12 @@ func TestGetUser(t *testing.T) {
 }
 
 func createRandomUser(t *testing.T) User {
+	password, err := utils.HashPassword(utils.RandomString(6))
+	require.NoError(t, err)
+	
 	arg := CreateUserParams{
 		Username: utils.RandomOwner(),
-		Password: "secret",
+		Password: password,
 		FullName: utils.RandomOwner(),
 		Email:    utils.RandomEmail(),
 	}
